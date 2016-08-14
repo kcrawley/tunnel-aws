@@ -1,5 +1,9 @@
 #!/bin/sh
 
+modprobe iptable_nat
+echo 1 | tee /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -s 10.10.10.1/2 -o eth0 -j MASQUERADE
+
 INSTANCE=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
 
 apt-get update && apt-get install -y openvpn
