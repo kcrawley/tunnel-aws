@@ -19,4 +19,4 @@ OPENVPN
 
 zip client.zip ${INSTANCE}.conf ${INSTANCE}.key
 echo \#\# fetch the client.zip from the remote and extract configuration locally
-echo \#\# scp -oStrictHostKeyChecking=no ubuntu@${INSTANCE}:/etc/openvpn/client.zip . && unzip client.zip ~/Library/Application\\ Support/Tunnelblick/Configurations
+echo \#\# scp -oStrictHostKeyChecking=no ubuntu@${INSTANCE}:/etc/openvpn/client.zip . \&\& unzip client.zip -d ~/Library/Application\\ Support/Tunnelblick/Configurations
