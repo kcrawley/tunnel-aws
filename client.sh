@@ -1,6 +1,11 @@
 #!/bin/sh
 
+INSTANCE=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
+
+apt-get install -y zip
+
 cd /etc/openvpn/
+
 cat > ${INSTANCE}.conf <<OPENVPN
 dev tun
 dhcp-option DNS 8.8.8.8
@@ -11,5 +16,7 @@ redirect-gateway def1
 remote ${INSTANCE}
 secret ${INSTANCE}.key
 OPENVPN
-apt-get install -y zip
+
 zip client.zip ${INSTANCE}.conf ${INSTANCE}.key
+echo \#\# fetch the client.zip from the remote and extract configuration locally
+echo \#\# scp -oStrictHostKeyChecking=no ubuntu@${INSTANCE}:/etc/openvpn/client.zip . && unzip client.zip ~/Library/Application\\ Support/Tunnelblick/Configurations
